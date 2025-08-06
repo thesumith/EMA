@@ -164,7 +164,7 @@
 
         animationTimeout = setTimeout(() => {
           const formattedTerm = searchTerm.toLowerCase().replace(/\s+/g, '-');
-          const emaUrl = `https://www.ema.europa.eu/en/medicines/human/EPAR/${formattedTerm}/#product-info';
+          const emaUrl = `https://www.ema.europa.eu/en/medicines/human/EPAR/${formattedTerm}/#product-info`;
           const pdfUrl = `https://www.ema.europa.eu/en/documents/product-information/${formattedTerm}-epar-product-information_en.pdf`;
 
           currentProduct.textContent = searchTerm;
