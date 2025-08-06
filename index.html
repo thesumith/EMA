@@ -1,278 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medicine Search Portal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        
-        :root {
-            --brand-blue: #3b82f6;
-            --brand-indigo: #6366f1;
-            --gray-light: #f9fafb;
-            --gray-dark: #374151;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Medicine Search Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--gray-light);
-            overflow-x: hidden;
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f9fafb;
+      overflow-x: hidden;
+    }
 
-        /* Animated Gradient Background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(320deg, var(--brand-indigo), var(--brand-blue), #818cf8, #93c5fd);
-            background-size: 200% 200%;
-            animation: gradient-flow 15s ease-in-out infinite;
-        }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      background: linear-gradient(320deg, #6366f1, #3b82f6, #818cf8, #93c5fd);
+      background-size: 200% 200%;
+      animation: gradient-flow 15s ease-in-out infinite;
+    }
 
-        @keyframes gradient-flow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+    @keyframes gradient-flow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-        /* Glassmorphism Effect */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        
-        .glass-card:hover:not(.no-hover) {
-            box-shadow: 0 16px 40px 0 rgba(31, 38, 135, 0.2);
-            transform: translateY(-4px);
-        }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+      transition: all 0.4s ease;
+    }
 
-        /* Button Styles */
-        .btn {
-            transition: all 0.3s ease;
-            transform: translateY(0);
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -10px currentColor;
-        }
-        .btn:active {
-            transform: translateY(0);
-            box-shadow: 0 4px 10px -8px currentColor;
-        }
+    .glass-card:hover:not(.no-hover) {
+      box-shadow: 0 16px 40px rgba(31, 38, 135, 0.2);
+      transform: translateY(-4px);
+    }
 
-        .btn-primary { background-color: var(--brand-blue); color: white; }
-        .btn-secondary { background-color: var(--gray-dark); color: white; }
-        .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .logo-shadow { filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15)); }
+    .btn {
+      transition: all 0.3s ease;
+    }
 
-        /* Animation Keyframes & Classes */
-        @keyframes fade-in-up {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fade-out-down {
-            from { opacity: 1; transform: translateY(0); }
-            to { opacity: 0; transform: translateY(20px); }
-        }
-        
-        .animate-fade-in-up { animation: fade-in-up 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; }
-        .is-hidden { display: none !important; }
-        .is-hiding { animation: fade-out-down 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px -10px currentColor;
+    }
 
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .fa-spinner { animation: spin 1s linear infinite; }
-    </style>
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 10px -8px currentColor;
+    }
+
+    .btn-primary { background-color: #3b82f6; color: white; }
+    .btn-secondary { background-color: #374151; color: white; }
+
+    .animate-fade-in-up {
+      animation: fade-in-up 0.6s ease forwards;
+    }
+
+    .is-hidden { display: none !important; }
+    .is-hiding { animation: fade-out-down 0.5s ease forwards; }
+
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fade-out-down {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(20px); }
+    }
+  </style>
 </head>
 <body class="min-h-screen text-gray-800">
-    <div class="container mx-auto px-4 py-8 md:py-16">
+  <div class="container mx-auto px-4 py-12">
+    <header class="text-center mb-12 animate-fade-in-up">
+      <div class="inline-block p-4 mb-4 rounded-2xl glass-card no-hover">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAhFBMVEVHcEwDTqIDTqIDTqIDTqIDTqIDTqIDTqIDTqIDTqICTqIDTqIDTqIDTqIDTqIOUJwyXJZRcJRuhqNiiLxJdbIXXKgARp8vUoFEWXBwcXGCgYCtray8vLuenp1iY2La2tunvttSVFWPj47Pzs7Hx8fq6uv////2+Pjf4OCNl6KMq9ITS4mt5wPCAAAAD3RSTlMAAwcnUYmxxjre/2kOjvnJeEIwAAABIElEQVR4AVzRBWKEMBAFUNzd3Umy9P7368S6oYPziH00pXQDSpdPahmmZTuu69iWafw3z/YDUb7tvZuFkjiHSuMoToJXJXEkzZCmqmwbSlM15OYp46XfcT1qhs1fZ1leFHlellXdBFC2AWiyhm3XD+M098u8rltJ1TcBLWb70h/nNQ9wvhGuqFqQmR0ETbkAzmSd5nk8b4w+FG1dMxzAZ+33fljxek3XeqNz/wF0DM1wATeEz3mYb3yT85yOhaH7h7Tu87zG+Rj6LzpwLanhG3oVmPJu6YSC+uZ4CuwCNiG+lOZ5Y0rRkiE0m4ptwEOQ8dUPRgL7LODxKcFXGyGAnzyVwSu/rGmaoK6D5newKMMb2QSSCeEEhpk0iUnUeLMDAATpJp3r7rJmAAAAAElFTkSuQmCC" alt="Portal Logo" class="h-14 md:h-16 logo-shadow" alt="EMA Logo" class="h-12 mx-auto" />
+      </div>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-white">Medicine Information Portal</h1>
+      <p class="text-lg text-indigo-100 max-w-2xl mx-auto mt-2">Instant access to official medicine data from EMA.</p>
+    </header>
 
-        <!-- Header -->
-        <header class="text-center mb-12 animate-fade-in-up" style="animation-delay: 100ms;">
-            <div class="inline-block p-4 mb-4 rounded-2xl glass-card no-hover">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAhFBMVEVHcEwDTqIDTqIDTqIDTqIDTqIDTqIDTqIDTqIDTqICTqIDTqIDTqIDTqIDTqIOUJwyXJZRcJRuhqNiiLxJdbIXXKgARp8vUoFEWXBwcXGCgYCtray8vLuenp1iY2La2tunvttSVFWPj47Pzs7Hx8fq6uv////2+Pjf4OCNl6KMq9ITS4mt5wPCAAAAD3RSTlMAAwcnUYmxxjre/2kOjvnJeEIwAAABIElEQVR4AVzRBWKEMBAFUNzd3Umy9P7368S6oYPziH00pXQDSpdPahmmZTuu69iWafw3z/YDUb7tvZuFkjiHSuMoToJXJXEkzZCmqmwbSlM15OYp46XfcT1qhs1fZ1leFHlellXdBFC2AWiyhm3XD+M098u8rltJ1TcBLWb70h/nNQ9wvhGuqFqQmR0ETbkAzmSd5nk8b4w+FG1dMxzAZ+33fljxek3XeqNz/wF0DM1wATeEz3mYb3yT85yOhaH7h7Tu87zG+Rj6LzpwLanhG3oVmPJu6YSC+uZ4CuwCNiG+lOZ5Y0rRkiE0m4ptwEOQ8dUPRgL7LODxKcFXGyGAnzyVwSu/rGmaoK6D5newKMMb2QSSCeEEhpk0iUnUeLMDAATpJp3r7rJmAAAAAElFTkSuQmCC" alt="Portal Logo" class="h-14 md:h-16 logo-shadow">
+    <main class="max-w-2xl mx-auto animate-fade-in-up">
+      <div class="glass-card rounded-2xl p-2 flex items-center mb-12">
+        <input type="text" id="medicineSearch" placeholder="Search for a medicine... (e.g. Humira)" class="flex-grow px-5 py-4 text-lg bg-transparent border-0 focus:ring-0 text-gray-700 placeholder-gray-500">
+        <button id="searchButton" class="btn btn-primary rounded-xl px-6 py-4 font-bold text-lg"><i class="fas fa-search"></i></button>
+      </div>
+
+      <div id="contentArea" class="relative">
+        <div id="resultsSection" class="is-hidden">
+          <div class="glass-card rounded-2xl p-8 text-center relative">
+            <div id="validationStatus" class="absolute top-4 right-4 text-xs font-bold px-3 py-1 rounded-full transition-all duration-300"></div>
+            <p class="text-3xl font-bold mb-2" id="currentProduct"></p>
+            <p class="text-gray-500 mb-6">Official information has been linked below.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a id="productLink" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary text-lg font-semibold py-4 px-8 rounded-xl w-full sm:w-auto">
+                <i class="fas fa-globe-europe mr-2"></i> View EMA Page
+              </a>
+              <a id="pdfLink" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary text-lg font-semibold py-4 px-8 rounded-xl w-full sm:w-auto">
+                <i class="fas fa-file-pdf mr-2"></i> Download PDF
+              </a>
             </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold text-white text-shadow">Medicine Information Portal</h1>
-            <p class="text-lg text-indigo-100 max-w-2xl mx-auto mt-2 text-shadow">
-                Instantly access official product information and documentation.
-            </p>
-        </header>
-        
-        <!-- Search Box -->
-        <main class="max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 200ms;">
-            <div class="glass-card rounded-2xl shadow-lg p-2 flex items-center mb-12">
-                <input type="text" id="medicineSearch" placeholder="Search for a medicine... (e.g. Humira)" class="flex-grow px-5 py-4 text-lg bg-transparent border-0 focus:ring-0 text-gray-700 placeholder-gray-500">
-                <button id="searchButton" class="btn btn-primary rounded-xl px-6 py-4 flex-shrink-0 font-bold text-lg">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-            
-            <!-- Content Area for Dynamic Results -->
-            <div id="contentArea" class="relative">
-                <!-- Results Card -->
-                <div id="resultsSection" class="is-hidden">
-                    <div class="glass-card rounded-2xl p-8 text-center relative">
-                        <div id="validationStatus" class="absolute top-4 right-4 text-xs font-bold px-3 py-1 rounded-full transition-all duration-300"></div>
-                        <p class="text-3xl font-bold mb-2" id="currentProduct"></p>
-                        <p class="text-gray-500 mb-6">Official information has been linked below.</p>
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                            <a id="productLink" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary text-lg font-semibold py-4 px-8 rounded-xl w-full sm:w-auto">
-                               <i class="fas fa-globe-europe mr-2"></i> View EMA Page
-                            </a>
-                            <a id="pdfLink" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary text-lg font-semibold py-4 px-8 rounded-xl w-full sm:w-auto">
-                               <i class="fas fa-file-pdf mr-2"></i> Download PDF
-                            </a>
-                        </div>
-                    </div>
-                    <div class="text-center mt-6">
-                        <button id="refreshButton" class="text-indigo-100 hover:text-white font-medium transition"><i class="fas fa-sync-alt mr-2"></i>New Search</button>
-                    </div>
-                </div>
+          </div>
+          <div class="text-center mt-6">
+            <button id="refreshButton" class="text-indigo-100 hover:text-white font-medium"><i class="fas fa-sync-alt mr-2"></i>New Search</button>
+          </div>
+        </div>
 
-                <!-- Initial State -->
-                <div id="initialState" class="text-center py-12 animate-fade-in-up" style="animation-delay: 300ms;">
-                    <i class="fas fa-prescription-bottle-alt text-5xl text-indigo-200 mb-4 opacity-50"></i>
-                    <h3 class="text-xl font-medium text-white mb-2">Awaiting Your Search</h3>
-                    <p class="text-indigo-100">Enter a medicine name to begin.</p>
-                </div>
+        <div id="initialState" class="text-center py-12 animate-fade-in-up">
+          <i class="fas fa-prescription-bottle-alt text-5xl text-indigo-200 mb-4"></i>
+          <h3 class="text-xl font-medium text-white mb-2">Awaiting Your Search</h3>
+          <p class="text-indigo-100">Enter a medicine name to begin.</p>
+        </div>
 
-                <!-- Error State -->
-                <div id="errorState" class="is-hidden">
-                    <div class="glass-card rounded-2xl p-8 text-center border-2 border-red-300">
-                        <i class="fas fa-exclamation-triangle text-5xl text-red-500 mb-4"></i>
-                        <h3 class="text-2xl font-bold text-red-600 mb-2">Medicine Not Found</h3>
-                        <p class="text-gray-600">We couldn't validate this medicine. Please check the spelling and try again.</p>
-                    </div>
-                     <div class="text-center mt-6">
-                        <button id="errorRefreshButton" class="text-indigo-100 hover:text-white font-medium transition"><i class="fas fa-sync-alt mr-2"></i>New Search</button>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
+        <div id="errorState" class="is-hidden">
+          <div class="glass-card rounded-2xl p-8 text-center border-2 border-red-300">
+            <i class="fas fa-exclamation-triangle text-5xl text-red-500 mb-4"></i>
+            <h3 class="text-2xl font-bold text-red-600 mb-2">Medicine Not Found</h3>
+            <p class="text-gray-600">We couldn't find this medicine on the EMA portal. Please check the spelling.</p>
+          </div>
+          <div class="text-center mt-6">
+            <button id="errorRefreshButton" class="text-indigo-100 hover:text-white font-medium"><i class="fas fa-sync-alt mr-2"></i>New Search</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('medicineSearch');
-            const searchButton = document.getElementById('searchButton');
-            const initialState = document.getElementById('initialState');
-            const resultsSection = document.getElementById('resultsSection');
-            const errorState = document.getElementById('errorState');
-            const validationStatus = document.getElementById('validationStatus');
-            const currentProduct = document.getElementById('currentProduct');
-            const productLink = document.getElementById('productLink');
-            const pdfLink = document.getElementById('pdfLink');
-            const refreshButton = document.getElementById('refreshButton');
-            const errorRefreshButton = document.getElementById('errorRefreshButton');
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('medicineSearch');
+      const searchButton = document.getElementById('searchButton');
+      const initialState = document.getElementById('initialState');
+      const resultsSection = document.getElementById('resultsSection');
+      const errorState = document.getElementById('errorState');
+      const validationStatus = document.getElementById('validationStatus');
+      const currentProduct = document.getElementById('currentProduct');
+      const productLink = document.getElementById('productLink');
+      const pdfLink = document.getElementById('pdfLink');
+      const refreshButton = document.getElementById('refreshButton');
+      const errorRefreshButton = document.getElementById('errorRefreshButton');
 
-            const corsProxy = 'https://api.allorigins.win/get?url=';
-            let currentSearchTerm = '';
-            let animationTimeout;
+      const corsProxy = 'https://api.allorigins.win/get?url=';
+      let currentSearchTerm = '';
+      let animationTimeout;
 
-            function performSearch() {
-                const searchTerm = searchInput.value.trim();
-                if (!searchTerm || searchTerm === currentSearchTerm) return;
+      function performSearch() {
+        const searchTerm = searchInput.value.trim();
+        if (!searchTerm || searchTerm === currentSearchTerm) return;
 
-                currentSearchTerm = searchTerm;
-                hideAllStates();
-                
-                clearTimeout(animationTimeout);
-                animationTimeout = setTimeout(() => {
-                    const formattedTerm = searchTerm.toLowerCase().replace(/\s+/g, '-');
-                    
-                    // --- URL UPDATED HERE ---
-                    const emaUrl = `https://www.ema.europa.eu/en/medicines/human/EPAR/${formattedTerm}#product-info`;
-                    const pdfUrl = `https://www.ema.europa.eu/en/documents/product-information/${formattedTerm}-epar-product-information_en.pdf`;
-                    
-                    currentProduct.textContent = searchTerm;
-                    productLink.href = emaUrl;
-                    pdfLink.href = pdfUrl;
+        currentSearchTerm = searchTerm;
+        hideAllStates();
+        clearTimeout(animationTimeout);
 
-                    setValidationStatus('verifying');
-                    showSection(resultsSection);
-                    
-                    validateLinksInBackground(pdfUrl, searchTerm);
-                }, 400);
-            }
+        animationTimeout = setTimeout(() => {
+          const formattedTerm = searchTerm.toLowerCase().replace(/\s+/g, '-');
+          const emaUrl = `https://www.ema.europa.eu/en/medicines/human/EPAR/${formattedTerm}`;
+          const pdfUrl = `https://www.ema.europa.eu/en/documents/product-information/${formattedTerm}-epar-product-information_en.pdf`;
 
-            async function validateLinksInBackground(urlToValidate, term) {
-                if (currentSearchTerm !== term) return;
+          currentProduct.textContent = searchTerm;
+          productLink.href = emaUrl;
+          pdfLink.href = pdfUrl;
 
-                const checkUrl = `${corsProxy}${encodeURIComponent(urlToValidate)}`;
-                try {
-                    const response = await fetch(checkUrl);
-                    if (!response.ok) throw new Error('Proxy network error');
-                    const data = await response.json();
-                    if (currentSearchTerm !== term) return;
+          setValidationStatus('verifying');
+          showSection(resultsSection);
 
-                    if (data.status && data.status.http_code && data.status.http_code !== 404) {
-                        setValidationStatus('verified');
-                    } else {
-                        throw new Error('404 Not Found');
-                    }
-                } catch (error) {
-                    console.error("Validation failed:", error.message);
-                    if (currentSearchTerm === term) {
-                        hideAllStates();
-                        clearTimeout(animationTimeout);
-                        animationTimeout = setTimeout(() => showSection(errorState), 400);
-                    }
-                }
-            }
-            
-            function setValidationStatus(status) {
-                switch(status) {
-                    case 'verifying':
-                        validationStatus.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Verifying';
-                        validationStatus.className = 'status-badge absolute top-4 right-4 text-xs font-bold px-3 py-1 rounded-full bg-yellow-100 text-yellow-800';
-                        break;
-                    case 'verified':
-                        validationStatus.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Verified';
-                        validationStatus.className = 'status-badge absolute top-4 right-4 text-xs font-bold px-3 py-1 rounded-full bg-green-100 text-green-800';
-                        break;
-                }
-            }
+          validateEmaPage(emaUrl, searchTerm);
+        }, 400);
+      }
 
-            function hideAllStates() {
-                [initialState, resultsSection, errorState].forEach(el => {
-                    if (!el.classList.contains('is-hidden')) {
-                        el.classList.add('is-hiding');
-                        el.addEventListener('animationend', () => el.classList.add('is-hidden'), { once: true });
-                    }
-                });
-            }
+      async function validateEmaPage(urlToValidate, term) {
+        const checkUrl = `${corsProxy}${encodeURIComponent(urlToValidate)}`;
+        try {
+          const response = await fetch(checkUrl);
+          if (!response.ok) throw new Error('Proxy error');
+          const data = await response.json();
 
-            function showSection(section) {
-                section.classList.remove('is-hidden', 'is-hiding');
-                section.classList.add('animate-fade-in-up');
-            }
+          if (currentSearchTerm !== term) return;
 
-            function resetPage() {
-                currentSearchTerm = '';
-                searchInput.value = '';
-                hideAllStates();
-                clearTimeout(animationTimeout);
-                animationTimeout = setTimeout(() => showSection(initialState), 400);
-                searchInput.focus();
-            }
+          if (data && data.status && data.status.http_code === 200) {
+            setValidationStatus('verified');
+          } else {
+            throw new Error('Page not found');
+          }
+        } catch (err) {
+          console.error("Validation failed:", err.message);
+          if (currentSearchTerm === term) {
+            hideAllStates();
+            clearTimeout(animationTimeout);
+            animationTimeout = setTimeout(() => showSection(errorState), 400);
+          }
+        }
+      }
 
-            searchButton.addEventListener('click', performSearch);
-            searchInput.addEventListener('keypress', (e) => e.key === 'Enter' && performSearch());
-            refreshButton.addEventListener('click', resetPage);
-            errorRefreshButton.addEventListener('click', resetPage);
-            
-            searchInput.focus();
+      function setValidationStatus(status) {
+        if (status === 'verifying') {
+          validationStatus.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Verifying';
+          validationStatus.className = 'absolute top-4 right-4 text-xs font-bold px-3 py-1 rounded-full bg-yellow-100 text-yellow-800';
+        } else if (status === 'verified') {
+          validationStatus.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Verified';
+          validationStatus.className = 'absolute top-4 right-4 text-xs font-bold px-3 py-1 rounded-full bg-green-100 text-green-800';
+        }
+      }
+
+      function hideAllStates() {
+        [initialState, resultsSection, errorState].forEach(el => {
+          if (!el.classList.contains('is-hidden')) {
+            el.classList.add('is-hiding');
+            el.addEventListener('animationend', () => el.classList.add('is-hidden'), { once: true });
+          }
         });
-    </script>
+      }
+
+      function showSection(section) {
+        section.classList.remove('is-hidden', 'is-hiding');
+        section.classList.add('animate-fade-in-up');
+      }
+
+      function resetPage() {
+        currentSearchTerm = '';
+        searchInput.value = '';
+        hideAllStates();
+        clearTimeout(animationTimeout);
+        animationTimeout = setTimeout(() => showSection(initialState), 400);
+        searchInput.focus();
+      }
+
+      searchButton.addEventListener('click', performSearch);
+      searchInput.addEventListener('keypress', (e) => e.key === 'Enter' && performSearch());
+      refreshButton.addEventListener('click', resetPage);
+      errorRefreshButton.addEventListener('click', resetPage);
+
+      searchInput.focus();
+    });
+  </script>
 </body>
 </html>
